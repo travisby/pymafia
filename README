@@ -1,0 +1,8 @@
+Automated Script for managing a game of mafia.  The computer acts as the referee, making sure no one has to sit out from the game.
+
+'init' begins the game.
+
+Completion:
+	game creation
+	registration
+	login

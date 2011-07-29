@@ -1,0 +1,18 @@
+MAIN
+	login
+	exit
+	display alive, dead
+	time/date of game
+	special characters alive?
+
+LOGGEDIN
+	display life status
+	vote -- show, or change
+	() special actions
+	add notes about characters
+
+SPECIALACTIONS
+	display everyone you know about
+
+NEWGAME
+	display, no display, delayed display on mafia	
