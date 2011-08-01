@@ -1,0 +1,36 @@
+25-33% mafia
+<=13  players, 1 cop, no more than 2 informative roles
+2 masons = 1 informative role
+if cop and doctor, mafia roleblocker needed
+1/2 town power roles == too many
+1/4 town power roles == need mafia power roles
+
+
+
+Consider what would happen if the town mass-claimed day 1. Assume one scum claims doctor or tracker, and the others claim townie. Does the town have a really good strategy to help them win? If they do, put in some way for the scum to stop it.
+Look at how fast the town can clear people. Masons are automatically cleared. Cops and most other info roles clear one person per day. Assume the scum never kill an info role or cleared player, and no player is cleared twice; how long will it tak
+
+
+C9
+1 Cop, 1 Doc, 2 Mafia, 3 Townies (identical to the original setup);
+1 Cop, 2 Mafia, 4 Townies
+1 Doc, 2 Mafia, 4 Townies
+2 Mafia, 5 Townies,
+
+F11
+1 Mafia Goon, 1 Mafia Roleblocker, 1 Sane Cop, 1 Doctor, 5 Townies.
+1 Mafia Goon, 1 Mafia Roleblocker, 7 Townies.
+2 Mafia Goons, 1 Sane Cop, 6 Townies.
+2 Mafia Goons, 1 Doctor, 6 Townies.
+For balance reasons, the Roleblocker should be able to nightkill even if the Goon is dead
+
+2of4
+1 Mafia Goon, 1 Mafia Role Cop, 5 Vanilla Townies, Sane Cop, Doctor.
+1 Mafia Goon, 1 Mafia Role Cop, 5 Vanilla Townies, Sane Cop, Jailkeeper.
+1 Mafia Goon, 1 Mafia Role Cop, 5 Vanilla Townies, Doctor, Jailkeeper.
+1 Mafia Goon, 1 Mafia Role Cop, 6 Vanilla Townies, Sane Cop.
+1 Mafia Goon, 1 Mafia Role Cop, 6 Vanilla Townies, Jailkeeper.
+1 Mafia Goon, 1 Mafia Role Cop, 6 Vanilla Townies, Doctor.
+The Mafia Role Cop is allowed to both submit the nightkill and perform his Role Cop action, no matter whether the Goon is dead or not
+
+9 player games
