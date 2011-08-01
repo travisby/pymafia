@@ -3,22 +3,25 @@ import os
 from main import main
 
 
-def newdb(dbname):
+def newdb(dbname): # At some point, we need to remove the "9" gsize insert, and use a variable
+    
     db = sqlite3.connect(dbname)
+#   gsize = Use a user-inputted variable to set gsize in insert statement
     db.executescript('''
         CREATE TABLE PLAYERS (
         id SMALLINT PRIMARY KEY,
         name VARCHAR,
         password CHARACTER(60),
-        status SMALLINT,
-        role VARCHAR,
-        known VARCHAR);
+        status SMALLINT default 1,
+	role VARCHAR,
+        known VARCHAR default "null");
 
         CREATE TABLE ADMIN (
-        status SMALLINT
-        gtime SMALLINT );
+	status SMALLINT,
+	gametime SMALLINT,  
+	gamesize SMALLINT);
 
-        INSERT INTO ADMIN (status) values ("0");
+        INSERT INTO ADMIN (status,gametime,gamesize) values (0,0,9);
         ''')
     db.commit()
     db.close()
