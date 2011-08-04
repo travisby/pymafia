@@ -3,6 +3,28 @@ import bcrypt
 import getpass
 import random
 
+def lynch(dbname):
+    db = sqlite3.connect(dbname)
+    db_cur = db.cursor()
+    db_cur.execute('SELECT name FROM PLAYERS WHERE status=1;')
+    num = len(db_cur.fetchall())/2 +1
+    db_cur.execute('SELECT gtime FROM ADMIN;')
+    gtime = db_cur.fetchone()
+    db_cur.execute('SELECT candidate FROM VOTES WHERE gtime=?;',gtime);
+    #votes = db_cur.fetchall()
+    #for i in db_cur:
+    #    votes += i[0]
+    #print votes
+    db.close()
+def vote(dbname,voter,candidate):
+    db = sqlite3.connect(dbname)
+    db_cur = db.cursor()
+    db_cur.execute('SELECT gtime FROM ADMIN;')
+    gtime = db_cur.fetchone()[0]
+    db_cur.execute('INSERT INTO VOTES (gtime,voter,candidate) values (?,?,?);',[gtime,voter,candidate])
+    db.commit()
+    db.close()
+
 
 def getvariation():
     x = random.randint(0,5)
@@ -38,7 +60,7 @@ def displayopts(dbname,user):
 def mainscreen(dbname,user):
     db = sqlite3.connect(dbname)
     db_cur = db.cursor()
-    print "Phase: " + db_cur.execute('SELECT gametime FROM ADMIN;')
+    print "Phase: " + db_cur.execute('SELECT gtime FROM ADMIN;')
     db_cur.execute('SELECT name FROM PLAYERS WHERE status=1;')
     print "Alive Players: ", db_cur.fetchall()
     db_cur.execute('SELECT name FROM PLAYERS WHERE status=0;')
@@ -49,9 +71,9 @@ def mainscreen(dbname,user):
 
 def register(dbname):
     user = raw_input("Please enter your username: ")
-    if len(user) <= 3: 
-	    print "That username is invalid.  Please enter a username over 3 characters."
-	    return 1
+    if len(user) <= 3:
+        print "That username is invalid.  Please enter a username over 3 characters."
+        return 1
     pw = getpass.getpass("Please enter your password: ")
     if pw == getpass.getpass("Please enter your password again: ") and len(pw) > 5:
         hashed = bcrypt.hashpw(pw,bcrypt.gensalt(12))
@@ -76,7 +98,7 @@ def main(dbname):
     gstatus = db_cur.fetchone()[0]
     db_cur.execute('SELECT name FROM PLAYERS;')
     numplayers = len(db_cur.fetchall())
-    db_cur.execute('SELECT gamesize FROM ADMIN;')
+    db_cur.execute('SELECT gsize FROM ADMIN;')
     gsize = db_cur.fetchone()[0]
     db.close()
     if  gstatus == 0 and numplayers < gsize:

@@ -4,7 +4,7 @@ from main import main
 
 
 def newdb(dbname): # At some point, we need to remove the "9" gsize insert, and use a variable
-    
+
     db = sqlite3.connect(dbname)
 #   gsize = Use a user-inputted variable to set gsize in insert statement
     db.executescript('''
@@ -13,15 +13,20 @@ def newdb(dbname): # At some point, we need to remove the "9" gsize insert, and 
         name VARCHAR,
         password CHARACTER(60),
         status SMALLINT default 1,
-	role VARCHAR,
-        known VARCHAR default "null");
+        role VARCHAR,
+        known VARCHAR default "" );
 
         CREATE TABLE ADMIN (
-	status SMALLINT,
-	gametime SMALLINT,  
-	gamesize SMALLINT);
+        status SMALLINT,
+        gtime SMALLINT,
+        gsize SMALLINT );
 
-        INSERT INTO ADMIN (status,gametime,gamesize) values (0,0,9);
+        CREATE TABLE VOTES (
+        gtime SMALLINT,
+        voter VARCHAR,
+        candidate VARCHAR );
+
+        INSERT INTO ADMIN (status,gtime,gsize) values (0,0,9);
         ''')
     db.commit()
     db.close()
