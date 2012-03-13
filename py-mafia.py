@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from MafiaCmd import MafiaCmd
+=======
+from mafiaCmd import mafiaCmd
+>>>>>>> 3811b0dff8880c8c6a13939c16cbb9bea759cf08
 print '''
 .########..##....##.........##.....##....###....########.####....###...
 .##.....##..##..##..........###...###...##.##...##........##....##.##..
@@ -26,5 +30,9 @@ by Travis Beatty (travisby@gmail.com)
 #print "Type 'help' to see all commands"
 
 
+<<<<<<< HEAD
 interpreter = MafiaCmd()
+=======
+interpreter = mafiaCmd()
+>>>>>>> 3811b0dff8880c8c6a13939c16cbb9bea759cf08
 interpreter.cmdloop()
