@@ -1,4 +1,4 @@
-from mafiaCmd import mafiaCmd
+from MafiaCmd import MafiaCmd
 print '''
 .########..##....##.........##.....##....###....########.####....###...
 .##.....##..##..##..........###...###...##.##...##........##....##.##..
@@ -26,5 +26,5 @@ by Travis Beatty (travisby@gmail.com)
 #print "Type 'help' to see all commands"
 
 
-interpreter = mafiaCmd()
+interpreter = MafiaCmd()
 interpreter.cmdloop()

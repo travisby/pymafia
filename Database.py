@@ -20,17 +20,18 @@ class Database:
 
     @staticmethod
     def create(dbname):
+        """Create the Database, if possible"""
         try:
             Database._testifdb(dbname)
-        except Exceptions.DBDNE:
-                return Database._newdb(dbname)
         except Exceptions.DBNoDB:
             raise Exceptions.DBNoDB
-            return
+        except Exceptions.DBDNE:
+                return Database._newdb(dbname)
         raise Exceptions.DBExists
 
     @staticmethod
     def connect(dbname):
+        """Attempt to connect to the Database"""
         try:
             Database._testifdb(dbname)
         except Exceptions.DBError:
@@ -67,7 +68,7 @@ class Database:
 
     @staticmethod
     def _newdb(dbname):
-        """Creates the Database"""
+        """Creates the Database schema and default state"""
         db = sqlite3.connect(dbname)
         db_cur = db.cursor()
         db_cur.executescript('''

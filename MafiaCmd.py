@@ -4,13 +4,13 @@ import getpass
 import Exceptions
 
 
-class mafiaCmd(cmd.Cmd, object):
+class MafiaCmd(cmd.Cmd, object):
 
     _player = None
     _db = None
 
     def __init__(self):
-        super(mafiaCmd, self).__init__()
+        super(MafiaCmd, self).__init__()
 ##############################################################################
 
     def do_create(self, s):
