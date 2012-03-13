@@ -1,4 +1,4 @@
-mimport Player
+import Player
 
 
 class Goon(Player):
