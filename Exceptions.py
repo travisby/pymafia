@@ -30,5 +30,13 @@ class Started(GameErrors):
     pass
 
 
+class Full(GameErrors):
+    pass
+
+
 class NotStarted(GameErrors):
+    pass
+
+
+class IncorrectUPCombination(GameErrors):
     pass

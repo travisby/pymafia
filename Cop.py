@@ -1,7 +1,7 @@
 import Player
 
 
-class Jailkeeper(Player):
+class Cop(Player):
 
     def __init__(self):
-        super(Jailkeeper, self).__init__()
+        super(Cop, self).__init__()
