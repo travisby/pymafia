@@ -1,0 +1,81 @@
+Flow of events for create a game
+	Preconditions
+		User is able to create a game
+	Main Flow
+		Ask questions about the game [S1]
+		Create game in database [S2]
+	Subflows
+		[S1] Ask for game name, period, (size, classifications)
+		[S2] Insert into the Game table
+
+
+Flow of events for register for a game
+	Preconditions
+		Game was created
+		Game not started
+		user able to join a game
+	Main Flow		
+		Add Character to Character table
+		Check if game now full [S1]
+	Subflows
+		[S1] If size = max_size, start game
+
+
+Flow of events for start game 
+	Preconditions
+		Player created
+		size = max_size
+	Main Flow
+		Assign Classifications [S1]
+		Set Game time (implies close game)
+		Set players to 'alive'
+		(Send notification that game has started)
+	Subflows
+		[S1] Use a random number generator to sort the list of players, and assign them Classifications from that
+		
+
+Flow of events for submit an action where action is vote
+	Preconditions
+		Day Phase
+	Main Flow
+		Cast vote into Action model [S1]
+		Checks if vote created the majority [S2]
+	Subflows
+		[S1] When the user casts a vote, we insert into the Action table, or update if they have already voted
+		[S2] Check the amount of characters in the game.  If there are > size/2 character that voted for the same person as this vote,
+			then lynch.
+
+
+Flow of events for a lynch
+	Preconditions
+		Majority Vote against Character X
+	Main Flow
+		Kill Character X [S1]
+		Change to Night Phase
+	Subflows
+		[S1] Change Character from alive to dead
+		[S2] Remove them from the game, etc.
+
+
+Flow of events for submit an action where an action is a (mafia) kill
+	Preconditions
+		Character has the ability
+		Correct phase (Night)
+	Main Flow
+		Add to actions table	
+	Subflows
+		No subflows
+
+Flow of events for end of phase
+	Preconditions
+		Time has run up OR all night moves have been submitted OR a majority of Characters have voted for another Character
+	Main Flow
+		Conflict Check [S1]
+		Run actions for the end of phase [S2]
+		Change phase
+		(Notify change of phase, and status changes)
+	Subflows
+		[S1] If the roleblock targets a power, their action is nullified.  If 
+			a doctor targets a "kill" target, the kill is not successful
+		[S2] Go through the action queue for this game with this time, respecting
+			[S1] confict check
