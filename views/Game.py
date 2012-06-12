@@ -35,7 +35,7 @@ def register_game(request):
         character.save()
         
         # If there are enough players, start the game!
-        if Player.get(game = gameID).count == Game.get(pk=gameID).max_size:
+        if Character.get(game = gameID).count == Game.get(pk=gameID).max_size:
             # send start game signal
             #wait a small amount of time [so the start game goes through
 
@@ -44,7 +44,7 @@ def register_game(request):
 
 def start_game(gameID):
     game = Game.get(pk = gameID)
-    players = Player.filter(game = game.id)
+    characters = Character.filter(game = game.id)
     if players.count != game.max_size:
         # throw exception
         raise Http404
@@ -58,14 +58,14 @@ def start_game(gameID):
     # After we shuffle the optional classes, we subtract the length of required
     # classes from the amount of players.  We then delete from THERE to the end
     # of the shuffled classesOpt list, to get our final list of Classifications
-    del classesOpt[players.count-len(classesReq):len(classesOpt)]OD
+    del classesOpt[characters.count-len(classesReq):len(classesOpt)]OD
     classesReq.extend(classesOpt)
     random.shuffle(classesReq)
-    players = Player.filter(game = gameID)
-    for player in players:
-        player.alive =1
+    character = Character.filter(game = gameID)
+    for character in characters:
+        character.alive =1
         # TODO
         # send notification
-        player.classification = classifications.pop(0)
-    Player.save()
+        character.classification = classifications.pop(0)
+    Character.save()
     game.time = 1 
