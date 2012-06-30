@@ -1,0 +1,27 @@
+User(username, password)
+	string: get_name()
+	tuple of games: get_games()
+	booelan: isAbleToJoinNewGame()
+
+Game(game_id)
+	string: get_name()
+	tuple of strings: get_alive_player_names()
+	int: get_time()
+
+
+
+Character(user, game)
+	string: get_name()
+	classification: get_classification()
+	void: perform_action(skill, [target])
+	boolean: is_alive()
+	game: get_game()
+
+
+Classification(classification_id)
+	string: get_name()
+	tuple of skills: get_skills()
+
+Skill(skill_id)
+	string: get_name()
+	
