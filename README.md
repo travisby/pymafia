@@ -1,6 +1,13 @@
 pymafia is a django app to automate a game of "mafia"
 
 
+COMMIT GUIDE:
+	100% code coverage using coverage.py.  I specifically use it with nose tests.
+
+	Commit messages should be like doctests.  Single line or multi-line.  If single line, a short description for the first line, and then the detailed multi-line description afterwards.  Commit messages should be in the past tense.
+	Commit early, commit often.
+
+
 STYLE GUIDE:
 
 imports
