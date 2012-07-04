@@ -1,0 +1,37 @@
+[
+  {
+    "model": "pymafia.skill",
+    "pk": 1,
+    "fields": {
+      "name": "vote"
+    }
+  },
+  {
+    "model": "pymafia.skill",
+    "pk": 2,
+    "fields": {
+      "name": "kill"
+    }
+  },
+  {
+    "model": "pymafia.skill",
+    "pk": 3,
+    "fields": {
+      "name": "investigate"
+    }
+  },
+  {
+    "model": "pymafia.skill",
+    "pk": 4,
+    "fields": {
+      "name": "jail"
+    }
+  },
+  {
+    "model": "pymafia.skill",
+    "pk": 5,
+    "fields": {
+      "name": "protect"
+    }
+  }
+]
