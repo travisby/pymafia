@@ -1,7 +1,7 @@
 from django.db import models
 
-class Skill(models.Model):
-    """Skill Model"""
+class Alignment(models.Model):
+    """Alignment Model"""
     name = models.CharField(max_length=8, help_text="Skill's displaying name")
 
     def __unicode__(self):

@@ -14,6 +14,9 @@ class Game(models.Model):
     def get_absolute_url(self):
         return ('game_detail', [str(self.id)])
 
+    def __unicode__(self):
+        return (self.name + self.id)
+
     class Meta:
         app_label = 'pymafia'
 

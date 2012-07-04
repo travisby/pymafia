@@ -10,5 +10,8 @@ class Action(models.Model):
     player = models.ForeignKey(Player, help_text='Peforming Character')
     skill = models.ForeignKey(Skill, help_text='Used skill')
 
+    def __unicode__(self):
+        return (self.player + self.skill)
+
     class Meta:
         app_label = 'pymafia'
