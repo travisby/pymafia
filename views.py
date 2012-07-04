@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView
 
-from models import Action, Character, Game
+from models import Action, Player, Game
 
 
 class ActionList(ListView):
@@ -10,12 +10,12 @@ class ActionList(ListView):
 
 class PlayerCreate(CreateView):
     """Renders a form to create a player for a game"""
-    model = Character
+    model = Player
 
 
 class PlayerList(ListView):
     """Lists all players in the current game"""
-    model = Character
+    model = Player
 
 
 class GameCreate(CreateView):
