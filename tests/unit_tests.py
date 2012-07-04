@@ -1,10 +1,3 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
 
 from factories import PyMafiaUserFactory, GameFactory, PlayerFactory
@@ -36,9 +29,10 @@ class UserTest(TestCase):
         PlayerFactory(user=user, game=game1)
         PlayerFactory(user=user, game=game2)
 
-        self.assertEqual(list(user.get_current_games()), [game1, game2])
+        self.assertEquals(list(user.get_current_games()), [game1, game2])
 
 
 
 class GameTest(TestCase):
-    pass
+    def test_create_game(self):
+        self.assertEquals(True, True)
