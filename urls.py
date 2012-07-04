@@ -1,27 +1,43 @@
 """URLS for pymafia"""
 
 from django.conf.urls import patterns, url
+from django.core.urlresolvers import reverse_lazy
 
 from views import (
                    ActionList, PlayerCreate, PlayerList,
                    GameCreate, GameDetail, GameList
                    )
 
-# urlpatterns = patterns('',
-#                        url(r'^api/', include(tastyapi.urls))
-# )
-
 urlpatterns = patterns('',
-                url(r'^game/$',
-                    GameList.as_view()),
-                url(r'^game/create/$',
-                    GameCreate.as_view()),
-                url(r'^game/(?P<game_id>\d+)/$',
-                   GameDetail.as_view()),
-                url(r'^game/(?P<game_id>\d+)/register/$',
-                   CharacterCreate.as_view()),
-                url(r'^game/(?P<game_id>\d+)/action/$',
-                   ActionList.as_view()),
-                url(r'^game/(?P<game_id>\d+)/character/$',
-                   CharacterList.as_view()),
+                url(
+                    r'^game/$',
+                    GameList.as_view(template_name='game_list.html'),
+                    name='game_list'
+                    ),
+                url(
+                    r'^game/(?P<pk>\d+)/$',
+                    GameDetail.as_view(template_name='game_detail.html'),
+                    name='game_detail'
+                   ),
+                url(
+                    r'^game/create/$',
+                    GameCreate.as_view(template_name='game_create.html'),
+                    name='game_create'
+                    ),
+
+                url(
+                    r'^game/(?P<pk>\d+)/register/$',
+                    PlayerCreate.as_view(template_name='player_register.html'),
+                    name='player_create'
+                   ),
+                url(
+                    r'^game/(?P<pk>\d+)/player/$',
+                    PlayerList.as_view(template_name='player_list.html'),
+                    name='player_list'
+                   ),
+                url(
+                    r'^game/(?P<pk>\d+)/action/$',
+                    ActionList.as_view(template_name='action_list.html'),
+                    name='action_list'
+                   )
                 )
