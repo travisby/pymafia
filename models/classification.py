@@ -1,5 +1,7 @@
 from django.db import models
+
 from pymafia.models import Alignment, Skill
+
 
 class Classification(models.Model):
     """All Game Classifications"""

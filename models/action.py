@@ -2,7 +2,6 @@ from django.db import models
 
 from pymafia.models import Player, Skill
 
-
 class Action(models.Model):
     """Records all actions (voting, kills, etc), by game and characters"""
 
@@ -11,7 +10,7 @@ class Action(models.Model):
     skill = models.ForeignKey(Skill, help_text='Used skill')
 
     def __unicode__(self):
-        return (self.player + self.skill)
+        return (self.player.name + self.skill.name)
 
     class Meta:
         app_label = 'pymafia'

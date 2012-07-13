@@ -1,5 +1,8 @@
 from django.db import models
 
+from pymafia.models import PyMafiaUser
+
+
 class Game(models.Model):
     """The Game model"""
     name = models.CharField(max_length=15, help_text='Game name')
@@ -9,13 +12,14 @@ class Game(models.Model):
     time = models.PositiveSmallIntegerField(default=0, editable=False, help_text='Current time')
     # How often the game changes cycle, in hours
     period = models.PositiveSmallIntegerField(default=24, help_text='Time, in hours, for the max phase time')
+    players = models.ManyToManyField(PyMafiaUser, through='Player', editable=False)
 
     @models.permalink
     def get_absolute_url(self):
         return ('game_detail', [str(self.id)])
 
     def __unicode__(self):
-        return (self.name + self.id)
+        return (self.name + unicode(self.id))
 
     class Meta:
         app_label = 'pymafia'

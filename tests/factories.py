@@ -1,25 +1,30 @@
 from factory import Factory, SubFactory
 
-from pymafia.models import Action, Player, Classification, Game, Skill
+from pymafia.models import Action, Alignment, Player, Classification, Game, Skill
 from pymafia.models import PyMafiaUser
+
+class AlignmentFactory(Factory):
+    FACTORY_FOR = Alignment
+
+    name = 'test_alignment'
 
 
 class SkillFactory(Factory):
     FACTORY_FOR = Skill
 
     name = 'test_skill'
-    ability = 1
 
 
 class ClassificationFactory(Factory):
     FACTORY_FOR = Classification
 
     name = 'test_class'
-    alignment = True
+    # This is 'Town'
+    alignment = Alignment(pk=1)
     #skill = SubFactory(SkillFactory())
 
 
-class PyMafiaUserFactory(Factory):
+class UserFactory(Factory):
     FACTORY_FOR = PyMafiaUser
 
 
@@ -37,7 +42,7 @@ class PlayerFactory(Factory):
 
     name = 'test_player'
     alive = True
-    user = SubFactory(PyMafiaUserFactory)
+    user = SubFactory(UserFactory)
     classification = SubFactory(ClassificationFactory)
     game = SubFactory(GameFactory)
 

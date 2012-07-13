@@ -26,12 +26,12 @@ urlpatterns = patterns('',
                     ),
 
                 url(
-                    r'^game/(?P<pk>\d+)/register/$',
-                    PlayerCreate.as_view(template_name='player_register.html'),
+                    r'^game/(?P<game_id>\d+)/register/$',
+                    PlayerCreate.as_view(template_name='player_create.html'),
                     name='player_create'
                    ),
                 url(
-                    r'^game/(?P<pk>\d+)/player/$',
+                    r'^game/(?P<game_id>\d+)/player/$',
                     PlayerList.as_view(template_name='player_list.html'),
                     name='player_list'
                    ),

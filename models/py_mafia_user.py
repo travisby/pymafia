@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
 
-from pymafia.models import Game, Player
-
 class PyMafiaUser(User):
     """Proxy model for the User model in auth"""
     class Meta:
@@ -11,11 +9,11 @@ class PyMafiaUser(User):
 
     def get_alive_players(self):
         """Returns all alive characters for a User"""
-        return Player.objects.filter(user=self, alive=True)
+        return self.player_set.filter(alive=True)
 
     def get_current_games(self):
         """Returns the games where the User has an alive character"""
-        return Game.objects.filter(player__in=self.get_alive_players())
+        return self.game_set.all()
 
 
     def get_current_games_count(self):
