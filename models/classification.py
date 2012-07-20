@@ -8,8 +8,8 @@ class Classification(models.Model):
     alignment = models.ForeignKey(Alignment)
     skill = models.ManyToManyField(Skill)
 
-    def __unicode__(self):
-        return (self.name)
+#    def __unicode__(self):
+#        return (self.name)
 
 
     class Meta:

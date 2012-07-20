@@ -14,8 +14,8 @@ class Player(models.Model):
     game = models.ForeignKey(Game, editable='False')
     classification = models.ForeignKey(Classification, blank=True, null=True, editable=False)
 
-    def __unicode__(self):
-        return (self.name)
+#    def __unicode__(self):
+#        return (self.name)
 
     class Meta:
         app_label = 'pymafia'
