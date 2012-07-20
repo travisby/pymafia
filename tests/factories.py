@@ -1,32 +1,40 @@
-from factory import Factory, SubFactory
+import uuid
+from factory import Factory, SubFactory, LazyAttribute
 
-from pymafia.models import Action, Player, Classification, Game, Skill
-from pymafia.models import PyMafiaUser
+from django.contrib.auth.models import User
 
+from pymafia.models import Action, Alignment, Player, Classification, Game, Skill
+
+class AlignmentFactory(Factory):
+    FACTORY_FOR = Alignment
+
+    name = LazyAttribute(lambda x:uuid.uuid1().__str__())
 
 class SkillFactory(Factory):
     FACTORY_FOR = Skill
 
-    name = 'test_skill'
-    ability = 1
+    name = LazyAttribute(lambda x:uuid.uuid1().__str__())
 
 
 class ClassificationFactory(Factory):
     FACTORY_FOR = Classification
 
-    name = 'test_class'
-    alignment = True
+    name = LazyAttribute(lambda x:uuid.uuid1().__str__())
+
+    alignment = SubFactory(AlignmentFactory)
     #skill = SubFactory(SkillFactory())
 
 
-class PyMafiaUserFactory(Factory):
-    FACTORY_FOR = PyMafiaUser
+class UserFactory(Factory):
+    FACTORY_FOR = User
 
+    username = LazyAttribute(lambda x:uuid.uuid1().__str__())
 
 class GameFactory(Factory):
     FACTORY_FOR = Game
 
-    name = 'test_game'
+    name = LazyAttribute(lambda x:uuid.uuid1().__str__())
+
     max_size = 9
     time = 0
     period = 24
@@ -35,9 +43,9 @@ class GameFactory(Factory):
 class PlayerFactory(Factory):
     FACTORY_FOR = Player
 
-    name = 'test_player'
+    name = LazyAttribute(lambda x:uuid.uuid1().__str__())
     alive = True
-    user = SubFactory(PyMafiaUserFactory)
+    user = SubFactory(UserFactory)
     classification = SubFactory(ClassificationFactory)
     game = SubFactory(GameFactory)
 

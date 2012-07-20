@@ -15,7 +15,7 @@ class Game(models.Model):
         return ('game_detail', [str(self.id)])
 
     def __unicode__(self):
-        return (self.name + self.id)
+        return (self.name + str(self.id))
 
     class Meta:
         app_label = 'pymafia'
