@@ -55,9 +55,10 @@ class SkillResource(ModelResource):
 
 class ClassificationResource(ModelResource):
     skills = fields.ToManyField(SkillResource, 'skills')
+    alignment = fields.ToOneField(AlignmentResource, 'alignment')
     class Meta:
         queryset = Classification.objects.all()
-        fields = ('id', 'name', 'skills')
+        fields = ('id', 'name', 'skills', 'alignment')
         allowed_methods = ('get', 'post')
         authorization= Authorization()
 
