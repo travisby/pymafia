@@ -1,7 +1,19 @@
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
+from tastypie import fields
+
+from django.contrib.auth.models import User
+
 
 from pymafia.models import Game, Action, Player, Classification, Alignment, Skill
+
+
+class UserResource(ModelResource):
+    class Meta:
+        queryset = User.objects.all()
+        resource_name = 'user'
+        allowed_methods = ('get', 'post', 'put')
+        authorization = Authorization()
 
 
 class GameResource(ModelResource):
@@ -19,9 +31,11 @@ class ActionResource(ModelResource):
 
 
 class PlayerResource(ModelResource):
+    user = fields.ForeignKey(UserResource, 'user')
+
     class Meta:
         queryset = Player.objects.all()
-        fields = ('name', 'alive', 'game')
+        fields = ('name', 'alive', 'game', 'user')
         allowed_methods = ('get',)
         authorization= Authorization()
 
