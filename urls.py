@@ -1,6 +1,6 @@
 """URLS for pymafia"""
 
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include
 from tastypie.api import Api
 from pymafia.api import GameResource, ActionResource, PlayerResource, ClassificationResource, AlignmentResource, SkillResource
 
