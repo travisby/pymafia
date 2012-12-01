@@ -66,10 +66,10 @@ class ClassificationResource(ModelResource):
 
 class ActionResource(ModelResource):
     skill = fields.ForeignKey(SkillResource, 'skill')
-    performed_against = fields.ToOneField(Player, 'player')
-    alignment_of_performing = fields.ToOneField(Alignment, 'ailgnment_of_performing')
+    performed_against_player = fields.ToOneField(PlayerResource, 'performed_against_player')
+
     class Meta:
         queryset = Action.objects.all()
         allowed_methods = ('get', 'post')
         authorization= Authorization()
-        fields = ('time', 'skill', 'performed_against', 'alignment_of_performing')
+        fields = ('time', 'skill', 'performed_against_player')
