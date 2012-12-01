@@ -39,13 +39,6 @@ class GameResource(ModelResource):
         authorization= Authorization()
 
 
-class ClassificationResource(ModelResource):
-    class Meta:
-        queryset = Classification.objects.all()
-        allowed_methods = ('get', 'post')
-        authorization= Authorization()
-
-
 class AlignmentResource(ModelResource):
     class Meta:
         queryset = Alignment.objects.all()
@@ -57,6 +50,14 @@ class SkillResource(ModelResource):
     class Meta:
         queryset = Skill.objects.all()
         allowed_methods = ('get',)
+        authorization= Authorization()
+
+
+class ClassificationResource(ModelResource):
+    skills = fields.ToManyField(SkillResource, 'skills')
+    class Meta:
+        queryset = Classification.objects.all()
+        allowed_methods = ('get', 'post')
         authorization= Authorization()
 
 
