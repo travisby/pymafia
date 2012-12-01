@@ -23,13 +23,6 @@ class GameResource(ModelResource):
         authorization= Authorization()
 
 
-class ActionResource(ModelResource):
-    class Meta:
-        queryset = Action.objects.all()
-        allowed_methods = ('get', 'post')
-        authorization= Authorization()
-
-
 class PlayerResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
 
@@ -59,3 +52,12 @@ class SkillResource(ModelResource):
         queryset = Skill.objects.all()
         allowed_methods = ('get',)
         authorization= Authorization()
+
+
+class ActionResource(ModelResource):
+    skill = fields.ForeignKey(SkillResource, 'skill')
+    class Meta:
+        queryset = Action.objects.all()
+        allowed_methods = ('get', 'post')
+        authorization= Authorization()
+        fields = ('time', 'skill')
