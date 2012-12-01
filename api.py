@@ -9,7 +9,7 @@ from pymafia.models import Game, Action, Player, Classification, Alignment, Skil
 
 
 class UserResource(ModelResource):
-    players = fields.ToManyField('pymafia.api.resources.PlayerResource', 'players')
+    players = fields.ManyToManyField('pymafia.api.resources.PlayerResource', 'players')
 
     class Meta:
         queryset = User.objects.all()
