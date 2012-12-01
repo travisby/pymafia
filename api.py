@@ -9,8 +9,11 @@ from pymafia.models import Game, Action, Player, Classification, Alignment, Skil
 
 
 class UserResource(ModelResource):
+    players = fields.ToManyField('pymafia.api.resources.PlayerResource', 'players')
+
     class Meta:
         queryset = User.objects.all()
+        fields = ('date_joined', 'email', 'first_name', 'id', 'is_active', 'is_staff', 'last_login', 'last_name', 'players' )
         resource_name = 'user'
         allowed_methods = ('get', 'post', 'put')
         authorization = Authorization()
