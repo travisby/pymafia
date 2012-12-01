@@ -1,4 +1,5 @@
 from tastypie.resources import ModelResource
+from tastypie.authorization import Authorization
 
 from pymafia.models import Game, Action, Player, Classification, Alignment, Skill
 
