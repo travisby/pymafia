@@ -1,6 +1,7 @@
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, Resource
 from tastypie.authorization import Authorization
 from tastypie import fields
+from tastypie.http import HttpCreated
 
 from django.contrib.auth.models import User
 
@@ -73,3 +74,18 @@ class ActionResource(ModelResource):
         allowed_methods = ('get', 'post')
         authorization= Authorization()
         fields = ('time', 'skill', 'performed_against_player')
+
+
+class RegistrationResource(Resource):
+    player = fields.ToOneField(PlayerResource, 'player')
+    game = fields.ToOneField(GameResource, 'game')
+
+    class Meta:
+        allowed_methods = ('post',)
+        authorization = Authorization()
+        fields = ('player', 'game')
+
+    def post_list(self, request, **kwargs):
+        print request
+        if not self._meta.always_return_data:
+            return HttpCreated(location=request.path)
