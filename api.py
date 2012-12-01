@@ -34,6 +34,7 @@ class GameResource(ModelResource):
 
     class Meta:
         queryset = Game.objects.all()
+        fields = ('id', 'max_size', 'name', 'period', 'players', 'time')
         allowed_methods = ('get', 'post')
         authorization= Authorization()
 
