@@ -19,13 +19,6 @@ class UserResource(ModelResource):
         authorization = Authorization()
 
 
-class GameResource(ModelResource):
-    class Meta:
-        queryset = Game.objects.all()
-        allowed_methods = ('get', 'post')
-        authorization= Authorization()
-
-
 class PlayerResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
 
@@ -33,6 +26,15 @@ class PlayerResource(ModelResource):
         queryset = Player.objects.all()
         fields = ('name', 'alive', 'game', 'user')
         allowed_methods = ('get',)
+        authorization= Authorization()
+
+
+class GameResource(ModelResource):
+    players = fields.OneToManyField(PlayerResource, 'players')
+
+    class Meta:
+        queryset = Game.objects.all()
+        allowed_methods = ('get', 'post')
         authorization= Authorization()
 
 
