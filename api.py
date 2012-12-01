@@ -57,6 +57,7 @@ class ClassificationResource(ModelResource):
     skills = fields.ToManyField(SkillResource, 'skills')
     class Meta:
         queryset = Classification.objects.all()
+        fields = ('id', 'name', 'skills')
         allowed_methods = ('get', 'post')
         authorization= Authorization()
 
