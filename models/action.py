@@ -11,8 +11,8 @@ class Action(models.Model):
     skill = models.ForeignKey(Skill, help_text='Used skill')
     performed_against_player = models.ForeignKey(Player, help_text='Player that the skill was used on', related_name='performed_against_player')
 
-#    def __unicode__(self):
-#        return (self.player + self.skill)
+    def __unicode__(self):
+        return '%s peformed %s against %s' % (self.performing_player, self.skill, self.performed_against_player)
 
     class Meta:
         app_label = 'pymafia'
