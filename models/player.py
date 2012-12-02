@@ -17,5 +17,8 @@ class Player(models.Model):
     def __unicode__(self):
         return (self.name)
 
+    def can_register(self):
+        return False
+
     class Meta:
         app_label = 'pymafia'

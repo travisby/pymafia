@@ -20,6 +20,14 @@ class Game(models.Model):
     class Meta:
         app_label = 'pymafia'
 
+    def register(self, player):
+        if not player.can_register():
+            return "Player Cannot register"
+        elif self.player_set.count >= self.max_size:
+            return "Game Full"
+
+        self.player_set.add(player)
+
 
 # def start_game(gameID):
 #     characters = Character.objects.filter(game=game.id)
