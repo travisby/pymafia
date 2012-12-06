@@ -6,7 +6,7 @@ class Classification(models.Model):
 
     name = models.CharField(max_length=25, help_text='Class name')
     alignment = models.ForeignKey(Alignment)
-    skill = models.ManyToManyField(Skill)
+    skill = models.ManyToManyField(Skill, blank=True)
 
     def __unicode__(self):
         """Used to pretty-print in the admin :-"""
