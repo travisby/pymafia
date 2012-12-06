@@ -15,6 +15,7 @@ class Game(models.Model):
         return '%s - %s' % (self.name, self.id)
 
     class Meta:
+        """This is so we can have multiple model files"""
         app_label = 'pymafia'
 
     def register(self, player):

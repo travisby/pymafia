@@ -9,4 +9,5 @@ class Skill(models.Model):
         return (self.name)
 
     class Meta:
+        """This is so we can have multiple model files"""
         app_label = 'pymafia'

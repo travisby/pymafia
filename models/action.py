@@ -16,4 +16,5 @@ class Action(models.Model):
         return '%s peformed %s against %s' % (self.performing_player, self.skill, self.performed_against_player)
 
     class Meta:
+        """This is so we can have multiple model files"""
         app_label = 'pymafia'
