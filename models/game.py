@@ -10,10 +10,6 @@ class Game(models.Model):
     # How often the game changes cycle, in hours
     period = models.PositiveSmallIntegerField(default=24, help_text='Time, in hours, for the max phase time')
 
-#    @models.permalink
-#    def get_absolute_url(self):
-#        return ('game_detail', [str(self.id)])
-
     def __unicode__(self):
         return '%s - %s' % (self.name, self.id)
 
