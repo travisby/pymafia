@@ -29,7 +29,7 @@ class PlayerResource(ModelResource):
         queryset = Player.objects.all()
         fields = ('name', 'alive', 'game', 'user')
         allowed_methods = ('get',)
-        authorization= Authorization()
+        authorization = Authorization()
 
 
 class GameResource(ModelResource):
@@ -40,7 +40,7 @@ class GameResource(ModelResource):
         queryset = Game.objects.all()
         fields = ('id', 'max_size', 'name', 'period', 'players', 'time')
         allowed_methods = ('get', 'post')
-        authorization= Authorization()
+        authorization = Authorization()
 
 
 class SkillResource(ModelResource):
@@ -48,7 +48,7 @@ class SkillResource(ModelResource):
     class Meta:
         queryset = Skill.objects.all()
         allowed_methods = ('get',)
-        authorization= Authorization()
+        authorization = Authorization()
 
 
 class AlignmentResource(ModelResource):
@@ -58,7 +58,7 @@ class AlignmentResource(ModelResource):
     class Meta:
         queryset = Alignment.objects.all()
         allowed_methods = ('get',)
-        authorization= Authorization()
+        authorization = Authorization()
 
 
 class ClassificationResource(ModelResource):
@@ -70,7 +70,7 @@ class ClassificationResource(ModelResource):
         queryset = Classification.objects.all()
         fields = ('id', 'name', 'alignment', 'skills')
         allowed_methods = ('get', 'post')
-        authorization= Authorization()
+        authorization = Authorization()
 
 
 class ActionResource(ModelResource):
@@ -81,7 +81,7 @@ class ActionResource(ModelResource):
     class Meta:
         queryset = Action.objects.all()
         allowed_methods = ('get', 'post')
-        authorization= Authorization()
+        authorization = Authorization()
         fields = ('time', 'skill', 'performed_against_player')
 
 
