@@ -9,9 +9,9 @@ class Player(models.Model):
 
     name = models.CharField(max_length=15, help_text="Character's name")
     # true if alive, false if dead
-    alive = models.BooleanField(default=False, editable='False', help_text='Is alive Boolean')
-    user = models.ForeignKey(User, editable='False')
-    game = models.ForeignKey(Game, editable='False')
+    alive = models.BooleanField(default=False, help_text='Is alive Boolean')
+    user = models.ForeignKey(User)
+    game = models.ForeignKey(Game)
     classification = models.ForeignKey(Classification, blank=True, null=True, editable=False)
 
     def __unicode__(self):

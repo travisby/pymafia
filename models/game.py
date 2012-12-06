@@ -4,11 +4,11 @@ class Game(models.Model):
     """The Game model"""
     name = models.CharField(max_length=15, help_text='Game name')
     # amount of characters in the game
-    max_size = models.PositiveSmallIntegerField(default=9, editable=False, help_text='Amount of players')
+    max_size = models.PositiveSmallIntegerField(default=9, help_text='Amount of players')
     # the current game time.  0 = not started, 1 = day, 2 = night, 3 = day...
-    time = models.PositiveSmallIntegerField(default=0, editable=False, help_text='Current time')
+    time = models.PositiveSmallIntegerField(default=0, help_text='Current time')
     # How often the game changes cycle, in hours
-    period = models.PositiveSmallIntegerField(default=24, editable=False, help_text='Time, in hours, for the max phase time')
+    period = models.PositiveSmallIntegerField(default=24, help_text='Time, in hours, for the max phase time')
 
     def __unicode__(self):
         """Used to pretty-print in the admin :-"""
