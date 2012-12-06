@@ -10,6 +10,7 @@ from pymafia.models import Game, Action, Player, Classification, Alignment, Skil
 
 
 class UserResource(ModelResource):
+
     players = fields.ToManyField('pymafia.api.PlayerResource', attribute = lambda x : x.obj.player_set.all())
 
     class Meta:
@@ -21,6 +22,7 @@ class UserResource(ModelResource):
 
 
 class PlayerResource(ModelResource):
+
     user = fields.ToOneField(UserResource, 'user')
 
     class Meta:
@@ -31,6 +33,7 @@ class PlayerResource(ModelResource):
 
 
 class GameResource(ModelResource):
+
     players = fields.ToManyField(PlayerResource, 'player_set')
 
     class Meta:
@@ -41,6 +44,7 @@ class GameResource(ModelResource):
 
 
 class SkillResource(ModelResource):
+
     class Meta:
         queryset = Skill.objects.all()
         allowed_methods = ('get',)
@@ -58,6 +62,7 @@ class AlignmentResource(ModelResource):
 
 
 class ClassificationResource(ModelResource):
+
     skills = fields.ToManyField(SkillResource, attribute = lambda x : x.obj.skill.all())
     alignment = fields.ToOneField(AlignmentResource, 'alignment')
 
@@ -69,6 +74,7 @@ class ClassificationResource(ModelResource):
 
 
 class ActionResource(ModelResource):
+
     skill = fields.ForeignKey(SkillResource, 'skill')
     performed_against_player = fields.ToOneField(PlayerResource, 'performed_against_player')
 
@@ -80,6 +86,7 @@ class ActionResource(ModelResource):
 
 
 class RegistrationResource(Resource):
+
     player = fields.ToOneField(PlayerResource, 'player')
     game = fields.ToOneField(GameResource, 'game')
 
