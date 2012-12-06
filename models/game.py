@@ -8,7 +8,7 @@ class Game(models.Model):
     # the current game time.  0 = not started, 1 = day, 2 = night, 3 = day...
     time = models.PositiveSmallIntegerField(default=0, editable=False, help_text='Current time')
     # How often the game changes cycle, in hours
-    period = models.PositiveSmallIntegerField(default=24, help_text='Time, in hours, for the max phase time')
+    period = models.PositiveSmallIntegerField(default=24, editable=False, help_text='Time, in hours, for the max phase time')
 
     def __unicode__(self):
         return '%s - %s' % (self.name, self.id)
