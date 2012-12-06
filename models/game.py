@@ -1,4 +1,5 @@
 from django.db import models
+from pymafia.models import Classification
 
 class Game(models.Model):
     """The Game model"""
@@ -9,6 +10,8 @@ class Game(models.Model):
     time = models.PositiveSmallIntegerField(default=0, help_text='Current time')
     # How often the game changes cycle, in hours
     period = models.PositiveSmallIntegerField(default=24, help_text='Time, in hours, for the max phase time')
+    # Which classes, and how many, are playable?
+    classification = models.ManyToManyField(Classification, through='GameClassification')
 
     def __unicode__(self):
         """Used to pretty-print in the admin :-"""

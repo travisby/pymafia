@@ -32,17 +32,6 @@ class PlayerResource(ModelResource):
         authorization = Authorization()
 
 
-class GameResource(ModelResource):
-
-    players = fields.ToManyField(PlayerResource, 'player_set')
-
-    class Meta:
-        queryset = Game.objects.all()
-        fields = ('id', 'max_size', 'name', 'period', 'players', 'time')
-        allowed_methods = ('get', 'post')
-        authorization = Authorization()
-
-
 class SkillResource(ModelResource):
 
     class Meta:
@@ -71,6 +60,18 @@ class ClassificationResource(ModelResource):
         fields = ('id', 'name', 'alignment', 'skills')
         allowed_methods = ('get', 'post')
         authorization = Authorization()
+
+class GameResource(ModelResource):
+
+    players = fields.ToManyField(PlayerResource, 'player_set')
+
+    class Meta:
+        queryset = Game.objects.all()
+        fields = ('id', 'max_size', 'name', 'period', 'players', 'time')
+        allowed_methods = ('get', 'post')
+        authorization = Authorization()
+
+
 
 
 class ActionResource(ModelResource):
