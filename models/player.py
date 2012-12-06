@@ -15,6 +15,7 @@ class Player(models.Model):
     classification = models.ForeignKey(Classification, blank=True, null=True, editable=False)
 
     def __unicode__(self):
+        """Used to pretty-print in the admin :-"""
         return (self.name)
 
     def can_register(self):

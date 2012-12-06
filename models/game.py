@@ -11,6 +11,7 @@ class Game(models.Model):
     period = models.PositiveSmallIntegerField(default=24, editable=False, help_text='Time, in hours, for the max phase time')
 
     def __unicode__(self):
+        """Used to pretty-print in the admin :-"""
         return '%s - %s' % (self.name, self.id)
 
     class Meta:

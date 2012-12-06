@@ -9,6 +9,7 @@ class Classification(models.Model):
     skill = models.ManyToManyField(Skill)
 
     def __unicode__(self):
+        """Used to pretty-print in the admin :-"""
         return (self.name)
 
 

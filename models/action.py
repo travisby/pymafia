@@ -12,6 +12,7 @@ class Action(models.Model):
     performed_against_player = models.ForeignKey(Player, help_text='Player that the skill was used on', related_name='performed_against_player')
 
     def __unicode__(self):
+        """Used to pretty-print in the admin :-)"""
         return '%s peformed %s against %s' % (self.performing_player, self.skill, self.performed_against_player)
 
     class Meta:
