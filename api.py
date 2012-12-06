@@ -63,7 +63,7 @@ class AlignmentResource(ModelResource):
 
 class ClassificationResource(ModelResource):
 
-    skills = fields.ToManyField(SkillResource, attribute = lambda x : x.obj.skill.all())
+    skills = fields.ToManyField(SkillResource, 'skill')
     alignment = fields.ToOneField(AlignmentResource, 'alignment')
 
     class Meta:
