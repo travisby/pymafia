@@ -31,7 +31,7 @@ class PlayerResource(ModelResource):
 
 
 class GameResource(ModelResource):
-    players = fields.OneToManyField(PlayerResource, attribute = lambda x : x.obj.player_set.all())
+    players = fields.ToManyField(PlayerResource, 'player_set')
 
     class Meta:
         queryset = Game.objects.all()
