@@ -1,13 +1,15 @@
-from django.contrib import admin
-from pymafia.models import (
-                            Alignment, Action, Player,
-                            Classification, Game, Skill, GameClassification
-                            )
+"""
+Set the models up for adminning
+"""
 
-admin.site.register(Action)
-admin.site.register(Alignment)
-admin.site.register(Classification)
-admin.site.register(Game)
-admin.site.register(Player)
-admin.site.register(Skill)
-admin.site.register(GameClassification)
+from django.contrib import admin
+import pymafia.models
+
+admin.site.register(pymafia.models.Action)
+admin.site.register(pymafia.models.Alignment)
+admin.site.register(pymafia.models.Game)
+admin.site.register(pymafia.models.Klass)
+admin.site.register(pymafia.models.Player)
+admin.site.register(pymafia.models.Setup)
+admin.site.register(pymafia.models.SetupKlass)
+admin.site.register(pymafia.models.Skill)
