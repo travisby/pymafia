@@ -9,168 +9,185 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'Game'
-        db.create_table('pymafia_game', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+        db.create_table(u'pymafia_game', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('setup', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Setup'])),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('max_size', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=9)),
-            ('time', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('period', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=24)),
         ))
-        db.send_create_signal('pymafia', ['Game'])
+        db.send_create_signal(u'pymafia', ['Game'])
 
-        # Adding model 'Skill'
-        db.create_table('pymafia_skill', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=8)),
+        # Adding model 'Setup'
+        db.create_table(u'pymafia_setup', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=15)),
+            ('num_players', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
+            ('is_start_time_day', self.gf('django.db.models.fields.BooleanField')()),
+            ('setup_type', self.gf('django.db.models.fields.CharField')(max_length=1)),
         ))
-        db.send_create_signal('pymafia', ['Skill'])
+        db.send_create_signal(u'pymafia', ['Setup'])
+
+        # Adding model 'SetupKlass'
+        db.create_table(u'pymafia_setupklass', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('setup', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Setup'])),
+            ('klass', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Klass'])),
+            ('priority', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
+        ))
+        db.send_create_signal(u'pymafia', ['SetupKlass'])
+
+        # Adding model 'Klass'
+        db.create_table(u'pymafia_klass', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=15)),
+        ))
+        db.send_create_signal(u'pymafia', ['Klass'])
 
         # Adding model 'Alignment'
-        db.create_table('pymafia_alignment', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=8)),
+        db.create_table(u'pymafia_alignment', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
         ))
-        db.send_create_signal('pymafia', ['Alignment'])
+        db.send_create_signal(u'pymafia', ['Alignment'])
 
-        # Adding model 'Classification'
-        db.create_table('pymafia_classification', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=25)),
-            ('alignment', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Alignment'])),
+        # Adding model 'Skill'
+        db.create_table(u'pymafia_skill', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=15)),
+            ('is_active', self.gf('django.db.models.fields.BooleanField')()),
         ))
-        db.send_create_signal('pymafia', ['Classification'])
-
-        # Adding M2M table for field skill on 'Classification'
-        db.create_table('pymafia_classification_skill', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('classification', models.ForeignKey(orm['pymafia.classification'], null=False)),
-            ('skill', models.ForeignKey(orm['pymafia.skill'], null=False))
-        ))
-        db.create_unique('pymafia_classification_skill', ['classification_id', 'skill_id'])
+        db.send_create_signal(u'pymafia', ['Skill'])
 
         # Adding model 'Player'
-        db.create_table('pymafia_player', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('alive', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+        db.create_table(u'pymafia_player', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('game', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Game'])),
-            ('classification', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Classification'], null=True, blank=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('klass', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Klass'])),
         ))
-        db.send_create_signal('pymafia', ['Player'])
+        db.send_create_signal(u'pymafia', ['Player'])
 
         # Adding model 'Action'
-        db.create_table('pymafia_action', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('time', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
-            ('performing_player', self.gf('django.db.models.fields.related.ForeignKey')(related_name='performing_player', to=orm['pymafia.Player'])),
+        db.create_table(u'pymafia_action', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('executor', self.gf('django.db.models.fields.related.ForeignKey')(related_name='actions_as_executor', to=orm['pymafia.Player'])),
+            ('target', self.gf('django.db.models.fields.related.ForeignKey')(related_name='actions_as_target', to=orm['pymafia.Player'])),
             ('skill', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pymafia.Skill'])),
-            ('performed_against_player', self.gf('django.db.models.fields.related.ForeignKey')(related_name='performed_against_player', to=orm['pymafia.Player'])),
         ))
-        db.send_create_signal('pymafia', ['Action'])
+        db.send_create_signal(u'pymafia', ['Action'])
 
 
     def backwards(self, orm):
         # Deleting model 'Game'
-        db.delete_table('pymafia_game')
+        db.delete_table(u'pymafia_game')
 
-        # Deleting model 'Skill'
-        db.delete_table('pymafia_skill')
+        # Deleting model 'Setup'
+        db.delete_table(u'pymafia_setup')
+
+        # Deleting model 'SetupKlass'
+        db.delete_table(u'pymafia_setupklass')
+
+        # Deleting model 'Klass'
+        db.delete_table(u'pymafia_klass')
 
         # Deleting model 'Alignment'
-        db.delete_table('pymafia_alignment')
+        db.delete_table(u'pymafia_alignment')
 
-        # Deleting model 'Classification'
-        db.delete_table('pymafia_classification')
-
-        # Removing M2M table for field skill on 'Classification'
-        db.delete_table('pymafia_classification_skill')
+        # Deleting model 'Skill'
+        db.delete_table(u'pymafia_skill')
 
         # Deleting model 'Player'
-        db.delete_table('pymafia_player')
+        db.delete_table(u'pymafia_player')
 
         # Deleting model 'Action'
-        db.delete_table('pymafia_action')
+        db.delete_table(u'pymafia_action')
 
 
     models = {
-        'auth.group': {
+        u'auth.group': {
             'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
+            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
         },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
+        u'auth.permission': {
+            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
             'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
+        u'auth.user': {
             'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
-        'contenttypes.contenttype': {
+        u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'pymafia.action': {
+        u'pymafia.action': {
             'Meta': {'object_name': 'Action'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'performed_against_player': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'performed_against_player'", 'to': "orm['pymafia.Player']"}),
-            'performing_player': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'performing_player'", 'to': "orm['pymafia.Player']"}),
-            'skill': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['pymafia.Skill']"}),
-            'time': ('django.db.models.fields.PositiveSmallIntegerField', [], {})
+            'executor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'actions_as_executor'", 'to': u"orm['pymafia.Player']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'skill': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pymafia.Skill']"}),
+            'target': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'actions_as_target'", 'to': u"orm['pymafia.Player']"})
         },
-        'pymafia.alignment': {
+        u'pymafia.alignment': {
             'Meta': {'object_name': 'Alignment'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '8'})
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
-        'pymafia.classification': {
-            'Meta': {'object_name': 'Classification'},
-            'alignment': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['pymafia.Alignment']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'skill': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['pymafia.Skill']", 'symmetrical': 'False'})
-        },
-        'pymafia.game': {
+        u'pymafia.game': {
             'Meta': {'object_name': 'Game'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'max_size': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '9'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'period': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '24'}),
-            'time': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'})
+            'setup': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pymafia.Setup']"})
         },
-        'pymafia.player': {
+        u'pymafia.klass': {
+            'Meta': {'object_name': 'Klass'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '15'})
+        },
+        u'pymafia.player': {
             'Meta': {'object_name': 'Player'},
-            'alive': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'classification': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['pymafia.Classification']", 'null': 'True', 'blank': 'True'}),
-            'game': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['pymafia.Game']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+            'game': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pymafia.Game']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'klass': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pymafia.Klass']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         },
-        'pymafia.skill': {
+        u'pymafia.setup': {
+            'Meta': {'object_name': 'Setup'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_start_time_day': ('django.db.models.fields.BooleanField', [], {}),
+            'klasses': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['pymafia.Klass']", 'through': u"orm['pymafia.SetupKlass']", 'symmetrical': 'False'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'num_players': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
+            'setup_type': ('django.db.models.fields.CharField', [], {'max_length': '1'})
+        },
+        u'pymafia.setupklass': {
+            'Meta': {'object_name': 'SetupKlass'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'klass': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pymafia.Klass']"}),
+            'priority': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
+            'setup': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pymafia.Setup']"})
+        },
+        u'pymafia.skill': {
             'Meta': {'object_name': 'Skill'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '8'})
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '15'})
         }
     }
 

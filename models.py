@@ -96,11 +96,6 @@ class Player(models.Model):
     A user participating in one game
     """
 
-    actions_as_executor = models.ManyToManyField(
-        'Action',
-        related_name='executor'
-    )
-    actions_as_target = models.ManyToManyField('Action', related_name='target')
     game = models.ForeignKey('Game')
     user = models.ForeignKey(User)
     klass = models.ForeignKey('Klass')
@@ -112,14 +107,6 @@ class Action(models.Model):
     Actions taken by a player (optionally) upon another
     """
 
-    # already completed in Player
-    # executor = models.ManyToManyField(
-    #     'Player',
-    #     related_name='actions_as_executor'
-    # )
-    # target = models.ManyToManyField(
-    #     'Player',
-    #     related_name='actions_as_target'
-    # )
-
+    executor = models.ForeignKey('Player', related_name='actions_as_executor')
+    target = models.ForeignKey('Player', related_name='actions_as_target')
     skill = models.ForeignKey('Skill')
